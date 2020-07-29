@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/mainStyleSheet.css" />
+    <link rel="stylesheet" href="~/css/additionalStyleSheet.css" />
+    <title>@ViewBag.Title</title>
+
+    
+</head>
+<body>
+    <div class="header">
+
+            <a asp-controller="Home" asp-action="MyCollection">Моя коллекция</a>
+            <a asp-controller="Dialogues" asp-action="MyDialogues">Диалоги</a>
+            <a asp-controller="Home" asp-action="MainCatalog">Главный каталог</a>
+            <a asp-controller="Home" asp-action="UserCatalog" asp-route-page="1">Пользовательский каталог</a>
+            @if (ViewBag.UserAuth == true)
+            {
+                <a id="login" asp-controller="Account" asp-action="MyAccount">@ViewBag.UserName</a>
+            }
+            else
+            {
+                <a id="login" asp-controller="Account" asp-action="Login">Авторизация</a>
+            }
+
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

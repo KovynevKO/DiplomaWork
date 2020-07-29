@@ -1,0 +1,35 @@
+﻿@model List<MedalsWebSystem.ViewModels.UserAndRead>
+@{
+    ViewData["Title"] = "Мои диалоги";
+}
+    <div class="dialogs">
+        <h1>Мои диалоги с:</h1>
+        @if (Model.Count != 0)
+        {
+            @foreach (UserAndRead c in Model)
+            {
+                <br />
+
+                @if (!c.IsRead)
+                {
+                    <a asp-action="DialogueWith" asp-route-userId="@c.User.UserId">
+                        @c.User.Login
+
+                    </a>
+                    <img src="~/images/letter.png" width="25" height="25" alt="Непрочитанные сообщения">
+                }
+                else
+                {
+                    <a asp-action="DialogueWith" asp-route-userId="@c.User.UserId"> @c.User.Login</a>
+                }
+                <br />
+
+            }
+        }
+        else
+        {
+            <p>Список пуст</p>
+        }
+    </div>
+
+

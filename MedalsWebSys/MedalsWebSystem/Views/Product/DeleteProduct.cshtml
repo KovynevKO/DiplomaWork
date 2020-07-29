@@ -1,0 +1,22 @@
+﻿@model MedalsWebSystem.Models.Product
+@{
+    ViewData["Title"] = "DeleteProduct";
+}
+
+    <div class="medal_action_delete">
+        <h2>Медаль @Model.Name будет удалена</h2>
+        <br />
+        <form asp-action="DeleteProductAction">
+            <div >
+                <input type="hidden" name="productId" value="@Model.ProductId" />
+                <input type="submit" value="Подтвердить" class="btn btn-outline-dark" />
+            </div>
+        </form>
+        <form asp-action="ProductInfo">
+            <div>
+                <input type="hidden" name="productId" value="@Model.ProductId" />
+                <input type="submit" value="Отмена" class="btn btn-outline-dark" />
+            </div>
+        </form>
+    </div>
+

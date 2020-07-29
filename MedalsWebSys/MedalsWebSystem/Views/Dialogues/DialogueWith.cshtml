@@ -1,0 +1,46 @@
+﻿@model MedalsWebSystem.ViewModels.DialogueViewModel
+@{
+    ViewData["Title"] = "Диалог";
+}
+
+    <div class="dialogWith">
+        <h2>Диалог с <a asp-controller="Home" asp-action="AboutUser" asp-route-userId="@Model.User2.UserId">@Model.User2.Login</a></h2>
+        <br />
+        <br />
+        @if (Model.Messages.Count != 0)
+        {
+            foreach (Message m in Model.Messages)
+            {
+                @if (m.Sender.Email == ViewBag.UserName)
+                {
+                    @m.Time.ToLongDateString()
+                    <p class="myMess"> @m.Sender.Login: @m.Text</p>
+                }
+                else
+                {
+                    @m.Time.ToLongDateString()
+                    <p class="notMyMess"> @m.Sender.Login: @m.Text</p>
+                }
+                <br />
+            }
+        }
+
+
+        <form asp-action="DialogueWith">
+            <input type="hidden" name="dialogueId" value="@Model.Dialogue.DialogueId" />
+            <input type="hidden" name="user2Id" value="@Model.User2.UserId" />
+            <div class="form-group">
+                <input name="Text" required minlength="1" maxlength="250" />
+                <input type="submit" value="Отправить" class="btn btn-outline-dark" />
+            </div>
+        </form>
+
+        <div class="page">
+            @for (int i = 1; i <= Model.PageViewModel.TotalPages; i++)
+            {
+                <a asp-action="DialogueWith" asp-route-uerId="@Model.User2.UserId" asp-route-page="@i">@i</a>
+            }
+        </div>
+    </div>
+
+

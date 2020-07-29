@@ -1,0 +1,238 @@
+﻿@model CatalogViewModel
+
+@{
+    ViewData["Title"] = "О пользователе";
+}
+@{
+    FilterInformation f1 = Model.FilterInformation;
+}
+
+<div class="content">
+    <div class="catalog">
+        <div class="cataloginfo">
+            @if (Model.User.Login != null)
+            {
+                <h2>Логин: @Model.User.Login</h2>
+            }
+
+            @if (Model.User.Role != null)
+            {
+                <h2>Статус: @Model.User.Role</h2>
+            }
+            <h2>Медалей в каталоге: @ViewBag.CatalogCount</h2>
+            <h2>Результатов поиска: @ViewBag.SearchCount</h2>
+        </div>
+        <div class="catalogbuttons">
+            @if (ViewBag.UserName != Model.User.Email)
+            {
+                <a asp-action="DialogueWith" asp-controller="Dialogues" asp-route-userId="@Model.User.UserId">Написать сообщение</a>
+            }
+
+            @if (ViewBag.UserRole == "Администратор" && Model.User.Role != "Администратор")
+            {
+                <form asp-action="ChangeRoleUser">
+                    <div>
+                        <br />
+                        <label>Изменение статуса:</label>
+                        <input type="hidden" name="userId" value="@Model.User.UserId" />
+                        <select name="newRole" asp-for="@Model.User.Role">
+                            <option value="Пользователь">Пользователь</option>
+                            <option value="Модератор">Модератор</option>
+                            <option value="Администратор">Администратор</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="submit" value="Применить" class="btn btn-outline-dark" />
+                    </div>
+                </form>
+            }
+        </div>
+        
+        
+        
+        <table>
+            <tr>
+                <th>Фото</th>
+                <th>Название</th>
+                <th>Страна</th>
+                <th>Категория</th>
+                <th>Год</th>
+                <th>Материал</th>
+                <th>Вес <br />(гр)</th>
+                <th>Диаметр <br />(мм)</th>
+                <th>Пользователь</th>
+            </tr>
+            @foreach (Product pr in Model.Products)
+            {
+                <tr>
+                    <td>
+                        @if (pr.minPhoto != null)
+                        {
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(pr.minPhoto))" />
+                        }
+                    </td>
+                    <td><a asp-action="ProductInfo" asp-route-productId="@pr.ProductId" asp-controller="Product">@pr.Name</a></td>
+
+                    <td>@pr.Country</td>
+                    <td>@pr.Category</td>
+                    <td>@pr.Year</td>
+                    <td>@pr.Material</td>
+                    <td>@pr.Weight</td>
+                    <td>@pr.Diameter</td>
+                    @if (@pr.UserAdder != null)
+                    {
+                        <td>@pr.UserAdder.Login</td>
+                    }
+
+                </tr>
+            }
+        </table>
+
+        <div class="page">
+            @for (int i = 1; i <= Model.PageViewModel.TotalPages; i++)
+            {
+                <a asp-action="AboutUser"
+                   asp-route-page="@i" asp-route-userId="@Model.User.UserId"
+                   asp-route-name="@Model.FilterInformation.name" asp-route-country="@Model.FilterInformation.country"
+                   asp-route-category="@Model.FilterInformation.category"
+                   asp-route-minYear="@Model.FilterInformation.minYear" asp-route-maxYear="@Model.FilterInformation.maxYear"
+                   asp-route-material="@Model.FilterInformation.material" asp-route-minWeight="@Model.FilterInformation.minWeight"
+                   asp-route-maxWeight="@Model.FilterInformation.minWeight" asp-route-minDiameter="@Model.FilterInformation.minDiameter"
+                   asp-route-maxDiameter="@Model.FilterInformation.maxDiameter" asp-route-byName="@Model.SortingInformation.byName"
+                   asp-route-byCategory="@Model.SortingInformation.byCategory"
+                   asp-route-byCountry="@Model.SortingInformation.byCountry" asp-route-byMaterial="@Model.SortingInformation.byMaterial"
+                   asp-route-byYear="@Model.SortingInformation.byYear" asp-route-byWeight="@Model.SortingInformation.byWeight"
+                   asp-route-byDiameter="@Model.SortingInformation.byDiameter" asp-route-byDateTime="@Model.SortingInformation.byDateTime">@i</a>
+            }
+        </div>
+    </div>
+    <div class="filters">
+        <form method="get" asp-action="UserSearch">
+            <div class="search">
+                <label>Поиск пользователя:</label>
+                <input type="text" name="userName" />
+                <input type="submit" value="Поиск" class="btn btn-outline-dark" />
+            </div>
+        </form>
+
+        <form method="get" asp-action="AboutUser">
+            <input type="hidden" name="page" value="1" />
+            <div class="search">
+                <label>Поиск медали:</label>
+                <input type="text" name="name" />
+                <input type="submit" value="Поиск" class="btn btn-outline-dark" />
+            </div>
+        </form>
+
+        <form method="get" asp-action="AboutUser">
+            <div>
+                <h3>Фильтрация:</h3>
+                <input type="hidden" name="page" value="1" />
+                <div class="selectB">
+                    @Html.DropDownList("country", new SelectList(ViewBag.Countries), "Страна")
+                </div>
+
+                <div class="selectB">
+                    @Html.DropDownList("category", new SelectList(ViewBag.Categories), "Категория")
+                </div>
+                <div class="input">
+                    <label>Год: От:</label>
+                    <input type="number" name="minYear" value="@Model.FilterInformation.minYear" />
+                    <label>До:</label>
+                    <input type="number" name="maxYear" value="@Model.FilterInformation.maxYear" />
+                </div>
+                <div class="selectB">
+                    @Html.DropDownList("material", new SelectList(ViewBag.Materials), "Материал")
+                </div>
+
+                <div class="input">
+                    <label>Вес: От:</label>
+                    <input type="number" name="minWeight" value="@Model.FilterInformation.minWeight" />
+
+                    <label>До:</label>
+                    <input type="number" name="maxWeight" value="@Model.FilterInformation.maxWeight" />
+                </div>
+                <div class="inputDiameter">
+                    <label>Диаметр: От:</label>
+                    <input type="number" name="minDiameter" value="@Model.FilterInformation.minDiameter" />
+                    <label>До:</label>
+                    <input type="number" name="maxDiameter" value="@Model.FilterInformation.maxDiameter" />
+                </div>
+            </div>
+
+            <div>
+                <h3>Сортировка:</h3>
+                <div class="selectS">
+                    <label>По дате добавления:</label><br />
+                    <select name="byDateTime" asp-for="@Model.SortingInformation.byDateTime">
+                        <option>Не сортировать</option>
+                        <option value="По убыванию">Сначала новые</option>
+                        <option value="По возрастанию">Сначала старые</option>
+                    </select>
+                </div>
+                <div class="selectS">
+                    <label>По названию:</label><br />
+                    <select name="byName" asp-for="@Model.SortingInformation.byName">
+                        <option>Не сортировать</option>
+                        <option value="По возрастанию">По возрастанию</option>
+                        <option value="По убыванию">По убыванию</option>
+                    </select>
+                </div>
+                <div class="selectS">
+                    <label>По стране:</label><br />
+                    <select name="byCountry" asp-for="@Model.SortingInformation.byCountry">
+                        <option>Не сортировать</option>
+                        <option value="По возрастанию">По возрастанию</option>
+                        <option value="По убыванию">По убыванию</option>
+                    </select>
+                </div>
+                <div class="selectS">
+                    <label>По категориям:</label><br />
+                    <select name="byCategory" asp-for="@Model.SortingInformation.byCategory">
+                        <option>Не сортировать</option>
+                        <option value="По возрастанию">По возрастанию</option>
+                        <option value="По убыванию">По убыванию</option>
+                    </select>
+                </div>
+                <div class="selectS">
+                    <label>По году:</label><br />
+                    <select name="byYear" asp-for="@Model.SortingInformation.byYear">
+                        <option>Не сортировать</option>
+                        <option value="По возрастанию">По возрастанию</option>
+                        <option value="По убыванию">По убыванию</option>
+                    </select>
+                </div>
+                <div class="selectS">
+                    <label>По материалу:</label><br />
+                    <select name="byMaterial" asp-for="@Model.SortingInformation.byMaterial">
+                        <option>Не сортировать</option>
+                        <option value="По возрастанию">По возрастанию</option>
+                        <option value="По убыванию">По убыванию</option>
+                    </select>
+                </div>
+                <div class="selectS">
+                    <label>По весу:</label><br />
+                    <select name="byWeight" asp-for="@Model.SortingInformation.byWeight">
+                        <option>Не сортировать</option>
+                        <option value="По возрастанию">По возрастанию</option>
+                        <option value="По убыванию">По убыванию</option>
+                    </select>
+                </div>
+                <div class="selectS">
+                    <label>По диаметру:</label><br />
+                    <select name="byDiameter" asp-for="@Model.SortingInformation.byDiameter">
+                        <option>Не сортировать</option>
+                        <option value="По возрастанию">По возрастанию</option>
+                        <option value="По убыванию">По убыванию</option>
+                    </select>
+                </div>
+            </div>
+            <div class="applybutton">
+                <input type="submit" value="Применить" class="btn btn-outline-dark" />
+            </div>
+        </form>
+    </div>
+    
+
+    
+</div>

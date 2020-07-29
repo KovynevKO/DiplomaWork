@@ -1,0 +1,60 @@
+﻿@model MedalsWebSystem.ViewModels.ProductInfoViewModel
+@{
+    ViewData["Title"] = "ProductInfo";
+}
+    <div class="product">
+
+        @if (Model.Product.Photo != null)
+        {
+            <img style='width:80%' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Product.Photo))" />
+        }
+        <br />
+        <br />
+        <h2>Название: @Model.Product.Name</h2><br />
+        <h2>Страна: @Model.Product.Country</h2><br />
+        <h2>Год: @Model.Product.Year</h2><br />
+        <h2>Материал: @Model.Product.Material</h2><br />
+        <h2>Вес: @Model.Product.Weight</h2><br />
+        <h2>Диаметр: @Model.Product.Diameter</h2><br />
+        @if (Model.Product.UserAdder != null)
+        {
+            <h2>Добавил на сайт: @Model.Product.UserAdder.Login </h2><br />
+        }
+
+        @if (ViewBag.CanIAddIt)
+        {
+            <a asp-action="AddToMyCollection" asp-route-productId="@Model.Product.ProductId" asp-controller="Product">Добавить в мою коллекцию</a>
+        }
+        @if (ViewBag.CanIDeleteIt)
+        {
+            <a asp-action="DeleteFromMyCollection" asp-route-productId="@Model.Product.ProductId" asp-controller="Product">Убрать из моей коллекции</a>
+        }
+
+        @if (ViewBag.UserRole == "Администратор" || ViewBag.UserRole == "Модератор")
+        {
+            @if (@Model.Product.isMainCatalog == false)
+            {
+                <a asp-action="AddToMainCatalog" asp-route-productId="@Model.Product.ProductId" asp-controller="Product">Добавить в Главный каталог</a>
+            }
+            @if (@Model.Product.isMainCatalog)
+            {
+                <a asp-action="DeleteFromMainCatalog" asp-route-productId="@Model.Product.ProductId" asp-controller="Product">Убрать из Главного Каталога</a>
+            }
+            <a asp-action="DeleteProduct" asp-route-productId="@Model.Product.ProductId" asp-controller="Product">Удалить</a>
+        }
+        <br />
+        <br />
+        <h3>Эта медаль есть у:</h3><br />
+        @if (Model.Users.Count == 0)
+        {
+            <p>Пользователей не найдено</p>
+        }
+        else
+        {
+            @foreach (User u in Model.Users)
+            {
+                <a asp-controller="Home" asp-action="AboutUser" asp-route-userId="@u.UserId">@u.Login</a><br /><br />
+            }
+        }
+    </div>
+

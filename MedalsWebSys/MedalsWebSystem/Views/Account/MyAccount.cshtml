@@ -1,0 +1,15 @@
+﻿@model MedalsWebSystem.Models.User
+@{
+    ViewData["Title"] = "Аккаунт";
+}
+
+<div class="account">
+    <h3>Почта: @Model.Email</h3>
+    <h3>Логин: @Model.Login</h3>
+    <h3>Имя: @Model.Name</h3>
+    <h3>Фамилия: @Model.Surname</h3>
+    <h3>Статус: @Model.Role</h3>
+    <form method="post" action="Logout">
+        <input type="submit" value="Выйти" />
+    </form>
+</div>

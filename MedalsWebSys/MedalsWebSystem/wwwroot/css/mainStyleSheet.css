@@ -1,0 +1,314 @@
+﻿* {
+    margin:0;
+    padding:0;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    background-color: #808080;
+    height: 45px;
+}
+
+.header a {
+    font-family: Arial;
+    font-size:20px;
+    height: 35px;
+    float: left;
+    text-align: center; 
+    color: white;
+    padding-top:10px;
+    padding-left:10px;
+    padding-right:10px;
+    text-decoration: none;
+    cursor:pointer;
+}  
+#login{
+    float:right;
+}  
+
+.header a:hover {
+    border-radius: 2px;
+    background: #696969;
+}
+
+.content{
+    position:relative;
+    margin-top:20px;
+}
+
+.catalog {
+    float:left;
+    width: 71%;
+    margin-left:20px;
+    border: 1px black;
+}
+
+.filters{
+    float: right;
+    width: 23%;
+    border: 1px;
+    margin-right:20px;
+}
+
+.filters h3{
+    margin-left: 10px;
+}
+
+.pages {
+    float: left;
+    width: 70%;
+    border: 1px;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.selectB select {
+    padding: .35rem .5rem;
+    background: none;
+    border: 2px solid #808080;
+    width: 100%;
+    border-radius: 3px;
+    position: relative;
+    font-size: 1rem;
+    font-family: Times New Roman, sans-serif;
+}
+
+.selectS select {
+    padding: .15rem .3rem;
+    background: none;
+    border: 2px solid #808080;
+    width: 100%;
+    border-radius: 3px;
+    position: relative;
+    font-size: 0.9rem;
+    font-family: Times New Roman, sans-serif;
+}
+
+.selectS {
+    margin: 10px;
+    font-family: Times New Roman, sans-serif;
+    font-size: 110%;
+}
+
+.selectB {
+    margin: 10px;
+    font-family: Times New Roman, sans-serif;
+    font-size: 110%;
+}
+
+.input {
+    margin: 10px;
+    font-family: Times New Roman, sans-serif;
+    font-size: 115%;
+}
+
+.input input{
+    padding: .35rem .5rem;
+    background: none;
+    border: 2px solid #808080;
+    width: 24.5%;
+    border-radius: 3px;
+    position: relative;
+    font-size: 1rem;
+}
+
+.inputDiameter {
+    margin: 10px;
+    font-family: Times New Roman, sans-serif;
+    font-size: 115%;
+}
+
+.inputDiameter input {
+    padding: .35rem .5rem;
+    background: none;
+    border: 2px solid #808080;
+    width: 18%;
+    border-radius: 3px;
+    position: relative;
+    font-size: 1rem;
+}
+
+.applybutton {
+    margin: 10px;
+    font-family: Times New Roman, sans-serif;
+}
+.applybutton input[type=submit] {
+    width: 100%;
+    padding: .35rem .5rem;
+    background: #808080;
+    color: white;
+    border: 2px solid #808080;
+    border-radius: 3px;
+    position: relative;
+    font-size: 1rem;
+}
+
+.applybutton input[type=submit]:hover {
+    background: #696969;
+    border: 2px solid #696969;
+}
+
+.search {
+    margin: 10px;
+    font-family: Times New Roman, sans-serif;
+    font-size: 115%;
+}
+
+.search input[type=submit] {
+    width: 30%;
+    padding: .35rem .5rem;
+    background: #808080;
+    color: white;
+    border: 2px solid #808080;
+    border-radius: 3px;
+    position: relative;
+    font-size: 1rem;
+}
+
+.search input[type=submit]:hover {
+    background: #696969;
+    border: 2px solid #696969;
+}
+
+.search input[type=text] {
+    width: 60%;
+    padding: .35rem .5rem;
+    background: none;
+    color:  #808080;
+    border: 2px solid #808080;
+    border-radius: 3px;
+    position: relative;
+    font-size: 1rem;
+}
+
+.catalog table {
+    border-spacing: 0 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+
+.catalog th {
+    padding: 3px 6px;
+    background: #808080;
+    color: white;
+    border-right: 2px solid;
+    font-size: 0.9em;
+}
+
+.catalog td {
+    vertical-align: middle;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-top: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    border-right: 2px solid #808080;
+}
+
+.catalog td:first-child {
+    padding:0px;
+    border-left: 2px solid #808080;
+}
+
+.catalog td:nth-child(2) {
+    text-align: left;
+}
+
+.catalog td .notImage a{
+    text-decoration: none;
+    color: black;
+}
+
+.catalog td .notImage a:hover{
+    color: white;
+    background-color: #808080;
+}
+
+.page{
+    margin-top:30px;
+    width:100%;
+    text-align:center;
+}
+.page a {
+    font-size: 20px;
+    padding: 5px;
+    color: black;
+    background-color: white;
+    border: 1px solid #808080;
+    border-radius: 50%;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.page a:hover {
+    color: white;
+    background-color: #808080;
+}
+
+.cataloginfo{
+    float:left;
+    width:70%;
+}
+
+.catalogbuttons {
+    text-align:center;
+    margin-top:15px;
+    float: right;
+    width: 20%;
+}
+
+.catalogbuttons a{
+    margin-bottom: 45px;
+    font-family: Times New Roman, sans-serif;
+    width: 100%;
+    text-decoration:none;
+    padding: .15rem .5rem;
+    background: #808080;
+    color: white;
+    border: 2px solid #808080;
+    border-radius: 3px;
+
+    font-size: 1rem;
+}
+
+
+.catalogbuttons a:hover {
+    background: #696969;
+    border: 2px solid #696969;
+}
+
+.catalogbuttons select {
+    margin-bottom: 5px;
+    padding: .15rem .3rem;
+    background: none;
+    border: 2px solid #808080;
+    width: 100%;
+    border-radius: 3px;
+    position: relative;
+    font-size: 0.9rem;
+    font-family: Times New Roman, sans-serif;
+    float:right;
+}
+
+.catalogbuttons input[type=submit] {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: .15rem .5rem;
+    background: #808080;
+    color: white;
+    border: 2px solid #808080;
+    border-radius: 3px;
+    position: relative;
+    font-size: 1rem;
+    float:right;
+}
+
+    .catalogbuttons input[type=submit]:hover {
+        background: #696969;
+        border: 2px solid #696969;
+    }

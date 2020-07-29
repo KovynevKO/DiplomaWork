@@ -1,0 +1,82 @@
+﻿@model MedalsWebSystem.ViewModels.AddProductModel
+@{
+    ViewData["Title"] = "UpdateProduct";
+}
+
+<div class="medal_action">
+<h1>Изменение:</h1>
+<form asp-action="UpdateProduct" asp-controller="Product" asp-anti-forgery="true" enctype="multipart/form-data">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div class="form-group">
+            <label asp-for="Name">Введите название:</label><br />
+
+            <input type="text" asp-for="Name" value="@Model.Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            @Html.DropDownList("Country", new SelectList(ViewBag.Countries), "Страна")
+            <span asp-validation-for="Country"></span>
+        </div>
+        <div class="form-group">
+            @Html.DropDownList("Category", new SelectList(ViewBag.Categories), "Категория")
+            <span asp-validation-for="Category"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Year">Введите год:</label><br />
+            <input asp-for="Year" type="number" />
+            <span asp-validation-for="Year"></span>
+        </div>
+        <div class="form-group">
+            @Html.DropDownList("Material", new SelectList(ViewBag.Materials), "Материал")
+            <span asp-validation-for="Material"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Weight">Введите вес:</label><br />
+            <input asp-for="Weight" value="@Model.Weight" />
+            <span asp-validation-for="Weight"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Diameter">Введите диаметр:</label><br />
+            <input asp-for="Diameter" value="@Model.Diameter" />
+            <span asp-validation-for="Diameter"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Введите описание:</label><br />
+            <input asp-for="Description" value="@Model.Description" />
+        </div>
+        <div class="input__wrapper">
+            <input asp-for="Photo" type="file" id="input__file" class="input input__file">
+            <label for="input__file" class="input__file-button">
+                <span class="input__file-icon-wrapper"><img class="input__file-icon" src="~/images/add.png" alt="Выбрать файл" width="25"></span>
+                <span class="input__file-button-text">Выберите файл</span>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" name="ProductId" value="@Model.ProductId" />
+            <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
+        </div>
+    </div>
+</form>
+</div>
+
+<script>
+    let inputs = document.querySelectorAll('.input__file');
+    Array.prototype.forEach.call(inputs, function (input) {
+        let label = input.nextElementSibling,
+            labelVal = label.querySelector('.input__file-button-text').innerText;
+
+        input.addEventListener('change', function (e) {
+            let countFiles = '';
+            if (this.files && this.files.length >= 1)
+                countFiles = this.files.length;
+
+            if (countFiles)
+                label.querySelector('.input__file-button-text').innerText = 'Выбрано файлов: ' + countFiles;
+            else
+                label.querySelector('.input__file-button-text').innerText = labelVal;
+        });
+    });
+</script>
+

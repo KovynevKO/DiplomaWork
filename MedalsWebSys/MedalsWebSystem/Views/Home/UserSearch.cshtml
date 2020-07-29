@@ -1,0 +1,24 @@
+﻿@model List<MedalsWebSystem.Models.User>
+@{
+    ViewData["Title"] = "UserSearch";
+}
+<div class ="content">
+        <div class="filters">
+        <form method="get" asp-action="UserSearch">
+            <div class="search">
+                <label>Поиск пользователя:</label>
+                <input type="text" name="userName" />
+                <input type="submit" value="Поиск" class="btn btn-outline-dark" />
+            </div>
+        </form>
+    </div>
+<div class="catalog">
+    <h1>Результаты поиска: </h1><br />
+    @foreach(User u in @Model)
+    {
+        <a asp-action="AboutUser" asp-route-userId="@u.UserId">@u.Login</a><br />
+    }
+</div>
+</div>
+
+
